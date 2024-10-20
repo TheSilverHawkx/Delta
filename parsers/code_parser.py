@@ -1,5 +1,5 @@
 from typing import Tuple, List
-from tree.graph_builder import LogicalNode, InstructionNode, LoopNode,BranchNode,WithNode,TryNode,ProgramNode
+from tree.nodes import LogicalNode, InstructionNode, LoopNode,BranchNode,WithNode,TryNode,ProgramNode
 import ast
 import networkx as nx
 
@@ -147,7 +147,6 @@ class CodeFlowParser(ast.NodeVisitor):
                 branch_node.add_branch('else', scope.nodes)
                 break
         
-
     def visit_For(self, node: ast.For):
         """
         Visit a for loop.

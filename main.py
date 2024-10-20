@@ -2,11 +2,12 @@ import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
 import matplotlib.pyplot as plt
 from typing import Tuple
-import codeflow.parser as parser
+import parsers.code_parser as parser
 from tree.nodes import ProgramNode,LogicalNode,InstructionNode,LoopNode,BranchNode,WithNode,TryNode
 from tree.graph_builder import build_graph
 from pathlib import Path
 from json import dump
+from parsers.file_parser import RepoParser
 
 class Maggigy:
     def __init__(self) -> None:
@@ -115,15 +116,22 @@ class Maggigy:
         input()
 
 if __name__ == '__main__':
+    repo_entrypoint = './'
     file_path = './example.py'
     
-    maggi = Maggigy()
+    # maggi = Maggigy()
 
-    program_node, graph, grap_labels = maggi.parse_file(file_path)
+    # program_node, graph, grap_labels = maggi.parse_file(file_path)
 
-    program_node.printProgram()
+    repo_parser = RepoParser()
 
-    maggi.export_tree(program_node,'./export.json')
+    root = repo_parser.parse(repo_entrypoint)
+
+    print(root)
+
+    # program_node.printProgram()
+
+    # maggi.export_tree(program_node,'./export.json')
 
 
 

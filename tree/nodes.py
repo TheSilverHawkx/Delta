@@ -8,14 +8,14 @@ class TreeNode(BaseModel):
      id: UUID4
      children: List['TreeNode']
 
-     def __init__(self):
-         super().__init__(id = uuid4(), children=[])
+     def __init__(self,**kwargs):
+         super().__init__(id = uuid4(), children=[],**kwargs)
 
      def __iter__(self):
          return iter(self.children)
      
      def __repr__(self):
-         return f"TreeNode({self.id})"
+         return f"{self.__class__.__name__}({self.id})"
      
      def add_child(self, node: 'TreeNode') -> None:
          self.children.append(node)
@@ -23,18 +23,9 @@ class TreeNode(BaseModel):
 class DirectoryNode(TreeNode):
     path: Path
 
-    def __init__(self,path: Path):
-        self.path = path
-        super().__init__()
-
 class FileNode(TreeNode):
     path: Path
     program: 'ProgramNode'
-
-    def __init__(self,path: Path, program: 'ProgramNode'):
-        self.path = path
-        self.program = program
-        super().__init__()
 
 class ProgramNode(TreeNode):   
     def printProgram(self) -> None:
